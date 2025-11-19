@@ -1,4 +1,2 @@
 # overstory.dev
 Eksamensprojekt
-
-nigga
