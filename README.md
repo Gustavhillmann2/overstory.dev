@@ -1,2 +1,3 @@
 # overstory.dev
 Eksamensprojekt
+Niggadolpcoin!
