@@ -1,2 +1,3 @@
 ## Sørger for at .evn-filen ikke bliver pushet op til Git-repositoriet
-.env 
+.env
+node_modules
