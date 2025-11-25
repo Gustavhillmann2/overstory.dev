@@ -1,28 +1,23 @@
-// Import Twilio
+require('dotenv').config();  // Loader .env
+
 const twilio = require('twilio');
-const dotenv = require('dotenv').config();
 
+const accountSid = process.env.TWILIO_ACCOUNT_SID;  // læser fra .env
+const authToken  = process.env.TWILIO_AUTH_TOKEN;
 
-// Twilio credentials
-const accountSid = 'process.env.TWILIO_ACCOUNT_SID';  // Erstat med dit SID
-const authToken = 'process.env.TWILIO_API_KEY';    // Erstat med dit Auth Token
-
-// Create Twilio client
 const client = twilio(accountSid, authToken);
 
-// Function to send SMS
 async function sendSms() {
-    try {
-        const message = await client.messages.create({
-            body: 'messageBody',      // Din besked her
-            from: '+19786072987',     // Dit Twilio-nummer
-            to: '+4529878824'         // Modtagerens nummer
-        });
-        console.log('Message sent with SID:', message.sid);
-    } catch (error) {
-        console.error('Error sending SMS:', error);
-    }
+  try {
+    const message = await client.messages.create({
+      body: 'Du kan vinde millioner',
+      from: '+19786072987',
+      to: '+4529878824'
+    });
+    console.log('Message sent with SID:', message.sid);
+  } catch (error) {
+    console.error('Error sending SMS:', error);
+  }
 }
 
-// Example usage
 sendSms();
