@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login Page</title>
+    </head>
+    
+    <body>
+                <link rel="stylesheet" href="main.css" />
+                <div class="auth-center">
+                    <div class="auth-card">
+                        <div class="auth-header">
+                            <h1>Login to Overstory</h1>
+                        </div>
+
+                        <form action="/users/login" method="POST">
+                            <label>Username</label>
+                            <input id="username" name="username" type="text" placeholder="e.g. johndoe" required />
+
+                            <label>Password</label>
+                            <input id="password" name="password" type="password" placeholder="Your password" required />
+
+                            <button id="login-button">Login</button>
+                            <p id="error-message" class="error"></p>
+                        </form>
+                    </div>
+                </div>
+    </body>
+</html>
+
