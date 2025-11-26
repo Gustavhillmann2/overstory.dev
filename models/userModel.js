@@ -1,18 +1,18 @@
 const db = require('../database/db');
 
 class UserModel {
-	static createUser(username, email, password) {
+	static createUser(username, phone, email, password) {
 		return new Promise((resolve, reject) => {
 			const sql = `
-				INSERT INTO users (username, email, password)
-				VALUES (?, ?, ?)
+				INSERT INTO users (username, phone, email, password)
+				VALUES (?, ?, ?, ?)
 			`
 
-			db.run(sql, [username, email, password], function (err) {
+			db.run(sql, [username, phone, email, password], function (err) {
 				if (err) {
 					return reject(err);
 				}
-				resolve({ id: this.lastID, username, email });
+				resolve({ id: this.lastID, username, phone, email });
 			});
 		})
 	}

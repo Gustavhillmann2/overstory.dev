@@ -1,3 +1,10 @@
 ## Sørger for at .evn-filen ikke bliver pushet op til Git-repositoriet
 .env
+
+## Ignorer node_modules
 node_modules
+
+## Ignorer sqlite databasefiler
+*.sqlite
+*.sqlite3
+database/mydb.sqlite
