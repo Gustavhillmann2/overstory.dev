@@ -23,4 +23,19 @@ db.serialize(() => {
     console.log('Database initialized');
 });
 
+db.serialize(() => {
+    console.log('Creating events table if it doesn\'t exist');
+    db.run(`CREATE TABLE IF NOT EXISTS events (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        date DATE NOT NULL,
+        description TEXT NOT NULL,
+        price INTEGER NOT NULL,
+        imageUrl TEXT NOT NULL
+    )`);
+
+    console.log('Events table initialized');
+});
+
+
 module.exports = db;
