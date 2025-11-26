@@ -10,7 +10,7 @@ const client = twilio(accountSid, authToken);
 async function sendSms() {
   try {
     const message = await client.messages.create({
-      body: 'Du kan vinde millioner',
+      body: 'Der er en nøgen dame i dit hus',
       from: '+19786072987',
       to: '+4529878824'
     });
