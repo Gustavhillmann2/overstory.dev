@@ -32,8 +32,15 @@ async function loginUser(req, res) {
 			return res.status(401).json({ error: 'Invalid credentials' });
 		}
 
+		req.session.userId = {
+			id: user.id,
+			username: user.username,
+			email: user.email,
+		};
+
+		console.log('Session data:', req.session.userId);
 		console.log('Successful login for user:', username);
-		
+
 		return res.status(200).json({ message: 'Login successful' }); // Login succesfuldt
 	} catch (err) {
 		return res.status(500).json({ error: 'Database error' }); // Håndterer databasefejl
