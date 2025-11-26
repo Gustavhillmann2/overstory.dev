@@ -22,6 +22,32 @@ async function createUser(req, res) {
 	}
 }
 
+async function loginUser(req, res) {
+	const { username, password } = req.body; // Henter brugerens oplysninger
+
+	try {
+		const user = await UserModel.findUser(username); // Finder brugeren i databasen
+
+		if (!user || user.password !== password) { // Tjekker om brugeren findes og om adgangskoden matcher
+			return res.status(401).json({ error: 'Invalid credentials' });
+		}
+
+		req.session.userId = {
+			id: user.id,
+			username: user.username,
+			email: user.email,
+		};
+
+		console.log('Session data:', req.session.userId);
+		console.log('Successful login for user:', username);
+
+		return res.status(200).json({ message: 'Login successful' }); // Login succesfuldt
+	} catch (err) {
+		return res.status(500).json({ error: 'Database error' }); // Håndterer databasefejl
+	}
+}
+
 module.exports = {
 	createUser,
+	loginUser
 };

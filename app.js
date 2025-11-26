@@ -1,7 +1,20 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+const session = require('express-session');
 
+app.use(
+	session({
+		secret: "overstoryKey107",
+		resave: false,
+		saveUninitialized: false,
+		cookie: {
+		  maxAge: 1000 * 60 * 60 * 24, // 1 day
+		  httpOnly: true,
+		},
+	})
+);
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
