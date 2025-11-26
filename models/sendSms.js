@@ -2,8 +2,9 @@ require('dotenv').config();  // Loader .env
 
 const twilio = require('twilio');
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID;  // læser fra .env
-const authToken  = process.env.TWILIO_AUTH_TOKEN;
+// Twilio credentials
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 const client = twilio(accountSid, authToken);
 
