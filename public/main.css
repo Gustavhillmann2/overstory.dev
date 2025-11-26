@@ -102,6 +102,32 @@ body {
     background: #1e4fdc;
 }
 
+/* Small footer under auth forms (register/login link) */
+.auth-footer {
+    text-align: center;
+    margin-top: 6px; /* reduced spacing so link sits closer to the form */
+}
+.auth-footer p {
+    margin: 0;
+    font-size: 13px;
+    color: #475569;
+}
+.auth-footer a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Login error message: remove default margins so footer sits close */
+#error-message.error, .error {
+    margin: 0;
+    font-size: 13px;
+    color: #dc2626;
+}
+
 /* Events page styles */
 .events-page {
     width: 100%;
