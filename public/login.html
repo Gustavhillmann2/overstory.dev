@@ -7,14 +7,25 @@
     </head>
     
     <body>
-        <link rel="stylesheet" href="main.css" />
-        <div class="login-container">
-            <h1>Login to Overstory</h1>
-            <input id="username" type="text" placeholder="Username" />
-            <input id="password" type="password" placeholder="Password" />
-            <button id="login-button">Login</button>
-            <p id="error-message" class="error"></p>
-        </div>
+                <link rel="stylesheet" href="main.css" />
+                <div class="auth-center">
+                    <div class="auth-card">
+                        <div class="auth-header">
+                            <h1>Login to Overstory</h1>
+                        </div>
+
+                        <form action="/users/login" method="POST">
+                            <label>Username</label>
+                            <input id="username" name="username" type="text" placeholder="e.g. johndoe" required />
+
+                            <label>Password</label>
+                            <input id="password" name="password" type="password" placeholder="Your password" required />
+
+                            <button id="login-button">Login</button>
+                            <p id="error-message" class="error"></p>
+                        </form>
+                    </div>
+                </div>
     </body>
 </html>
 
