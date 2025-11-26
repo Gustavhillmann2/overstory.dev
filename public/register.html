@@ -8,13 +8,18 @@
 
     <form action="/users/register" method="POST">
             <label>Username</label>
-            <input type="text" name="username" required>
+            <input type="text" name="username" required placeholder="e.g. johndoe">
     
             <label>Email</label>
-            <input type="email" name="email" required>
+            <input type="email" name="email" required placeholder="you@example.com">
+
+            <label>Phone</label>
+            <input type="tel" name="phone" required pattern="^\+\d{6,15}$" placeholder="+45 12345678" aria-describedby="phone-hint">
+            <small id="phone-hint" class="hint">Include country code, e.g. +45</small>
     
             <label>Password</label>
-            <input type="password" name="password" required>
+            <input type="password" name="password" required placeholder="At least 8 characters" aria-describedby="password-hint">
+            <small id="password-hint" class="hint">Use a strong password (8+ characters).</small>
     
             <button type="submit">Register</button>
     </form>
