@@ -7,3 +7,4 @@ node_modules
 ## Ignorer sqlite databasefiler
 *.sqlite
 *.sqlite3
+database/mydb.sqlite
