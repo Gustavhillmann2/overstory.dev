@@ -1,13 +1,27 @@
-const User = require('../models/User');
+/* Dens formål er, at tale med Express */
 
-exports.register = (req, res) => {
-  const { username, email, password } = req.body;
+// Importere models
+const UserModel = require('../models/userModel');
 
-  try {
-    const newUser = User.create(username, email, password);
-    res.send("User created successfully: " + newUser.username);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error creating user");
-  }
+// Controller funktion til at oprette en bruger
+async function createUser(req, res) {
+	console.log("REQ BODY:", req.body);
+	const { username, email, password } = req.body;
+
+	// Validering af input
+	if(!username || !email || !password) {
+		return res.status(400).json({ error: 'Missing fields' });
+	}
+
+	try {
+		const newUser = await UserModel.createUser(username, email, password);
+
+		return res.status(201).json(newUser);
+	} catch (err) {
+		return res.status(500).json({ error: 'Database error' });
+	}
+}
+
+module.exports = {
+	createUser,
 };

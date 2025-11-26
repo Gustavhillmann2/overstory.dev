@@ -1,9 +1,15 @@
 const path = require('path');
-
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database(path.join(__dirname, 'mydb.sqlite'));
 
-// Opretter en tabel, hvis den ikke allerede findes
+const db = new sqlite3.Database(path.join(__dirname, 'mydb.sqlite'), (err) => {
+    if (err) {
+        console.error("Failed to connect to SQLite:", err);
+    } else {
+        console.log("Connected to SQLite at", path.join(__dirname, 'mydb.sqlite'));
+    }
+});
+
+/* Opret tabel hvis den ikke findes */
 db.serialize(() => {
     console.log('Creating database if it doesn\'t exist');
     db.run(`CREATE TABLE IF NOT EXISTS users (
@@ -16,29 +22,4 @@ db.serialize(() => {
     console.log('Database initialized');
 });
 
-// Brugere
-const users = [
-    { username: 'gustav', email: 'gustav@example.com', password: 'password1' },
-];
-
-
-// Funktion til at oprette bruger
-db.serialize(() => {
-    const dbStatement = db.prepare('INSERT INTO users (username, email, password) VALUES (?, ?, ?)');
-    users.forEach(user => {
-        dbStatement.run(user.username, user.email, user.password, (err) => {
-            if (err) {
-                console.error(`Failed to insert ${user.username}:`, err);
-            }
-        });
-    });
-    dbStatement.finalize(err => {   
-        if (err) {
-            console.error('Error finalizing statement:', err);
-        } else {
-            console.log('All users inserted successfully');
-        }
-    });
-});
-
-db.close();
+module.exports = db;
