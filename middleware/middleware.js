@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const rateLimit = require('express-rate-limit');
 require('express-async-errors'); // patch to handle async errors automatically
-const cloudinary = require('cloudinary').v2;
 
 const { body, validationResult } = require('express-validator');
 

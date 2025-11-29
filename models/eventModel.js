@@ -15,6 +15,35 @@ class EventModel {
 				resolve({ id: this.lastID, title, date, description, price, imageUrl });
 			});
 		})
+	};
+
+	static getEvents() {
+		return new Promise((resolve, reject) => {
+			const sql = `SELECT * FROM events`;
+
+			db.all(sql, [], (err, rows) => {
+				if (err) {
+					return reject(err);
+				}
+				resolve(rows);
+			});
+		})
+	}
+
+	static registerEvent(userId, eventId) {
+		return new Promise((resolve, reject) => {
+			const sql = `
+				INSERT INTO registrations (userId, eventId)
+				VALUES (?, ?)
+			`
+
+			db.run(sql, [userId, eventId], function (err) {
+				if (err) {
+					return reject(err);
+				}
+				resolve({ id: this.lastID, userId, eventId });
+			});
+		})
 	}
 }
 

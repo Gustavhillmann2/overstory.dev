@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="main.css">
+
+<div class="events-page">
+	<main class="events-container">
+		<div class="page-header">
+			<h1 class="page-title">Upcoming Events</h1>
+
+			<div class="user-badge">
+				<div class="avatar">👤</div>
+				<div class="user-popup">
+					<strong class="popup-name"><%= username %></strong>
+					<div class="popup-email"><%= email %></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="events-grid">
+
+			<% events.forEach(event => { %>
+			<article class="event-card" tabindex="0" role="button">
+				<div class="event-cover"
+					style="background-image: url('<%= event.imageUrl || '' %>')">
+				</div>
+
+				<h2 class="event-title"><%= event.title %></h2>
+				<p class="event-desc"><%= event.description %></p>
+
+				<div class="event-meta">
+					<time datetime="<%= event.date %>">
+						<%= new Date(event.date).toLocaleDateString('en-US', {
+							month: 'short',
+							day: 'numeric',
+							year: 'numeric'
+						}) %>
+					</time>
+
+					<span class="event-price">DKK <%= event.price %></span>
+				</div>
+
+				<form action="/events/register/<%= event.id %>" method="POST">
+					<button class="event-sign-up">Sign Up</button>
+				</form>
+			</article>
+			<% }) %>
+
+		</div>
+	</main>
+</div>

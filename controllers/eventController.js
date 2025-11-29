@@ -22,6 +22,47 @@ async function createEvent(req, res) {
 	}
 }
 
+async function renderEvents(req, res) {
+	try {
+		const events = await EventModel.getEvents();
+
+		const user = req.session.userId;
+
+		console.log(user);
+
+		res.render('events', { 
+			events,
+			id: user.id,
+			username: user.username,
+			email: user.email
+		});
+	} catch (err) {
+		console.error(err);
+		res.status(500).send('Database error');
+	}
+}
+
+async function registerEvent(req, res) {
+	const userId = req.session.userId.id;   // FIXED
+	const eventId = req.params.eventId;
+
+	try {
+		await EventModel.registerEvent(userId, eventId);
+		return res.redirect('/events');
+	} catch (err) {
+		console.error(err);
+
+		// If user already registered
+		if (err.message.includes("UNIQUE")) {
+			return res.redirect('/events');
+		}
+
+		return res.status(500).json({ error: 'Database error' });
+	}
+}
+
 module.exports = {
 	createEvent,
+	renderEvents,
+	registerEvent
 };
