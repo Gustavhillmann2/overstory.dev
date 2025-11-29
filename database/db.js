@@ -72,60 +72,60 @@ db.serialize(() => {
             // Opretter et array af standard events
             const events = [
                 {
-                    title: 'Tree Planting Workshop',
-                    date: '2024-07-15',
-                    description: 'Learn how to plant and care for trees in this hands-on workshop.',
-                    price: 20,
-                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image1_izjn09?_a=BAMAMiRj0'
+                    title: 'Coordinated Shopping Tour in Ringsted Designer Outlet',
+                    date: '2025-07-07',
+                    description: 'Join us for a fun shopping tour at Ringsted Designer Outlet with exclusive discounts and group activities.',
+                    price: 500,
+                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image1_zue0cr?_a=BAMAMiRj0'
                 },
                 {
-                    title: 'Nature Walk',
-                    date: '2024-08-01',
-                    description: 'Join us for a guided walk through the local forest and learn about native plants and wildlife.',
-                    price: 10,
-                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image2_wjcvhs?_a=BAMAMiRj0'
+                    title: 'Visit the Brassknuckle in Ballerup',
+                    date: '2026-05-05',
+                    description: 'Join us for an exciting visit to the Brassknuckle venue in Ballerup for live music and entertainment.',
+                    price: 350,
+                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image2_hj1ez1?_a=BAMAMiRj0'
                 },
                 {
-                    title: 'Sustainable Gardening Seminar',
-                    date: '2024-09-10',
-                    description: 'Discover techniques for creating a sustainable and eco-friendly garden at home.',
-                    price: 15,
-                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image3_e4ixgc?_a=BAMAMiRj0'
+                    title: 'Marathon from Ringsted to Ballerup backwards',
+                    date: '2026-10-10',
+                    description: 'Challenge yourself in our unique marathon running backwards from Ringsted to Ballerup!',
+                    price: 150,
+                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image7_lc1tdd?_a=BAMAMiRj0'
                 },
                 {
-                    title: 'Bird Watching Expedition',
-                    date: '2024-10-05',
-                    description: 'Explore local bird habitats and learn to identify different species with an expert guide.',
+                    title: 'Lucas Knudsen Pop-up Concert',
+                    date: '2026-10-05',
+                    description: 'Enjoy an intimate pop-up concert featuring Lucas Knudsen performing his latest hits.',
                     price: 25,
-                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image4_vnz3mg?_a=BAMAMiRj0'
+                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image9_xtrx5r?_a=BAMAMiRj0'
                 },
                 {
-                    title: 'Composting 101',
-                    date: '2024-11-20',
-                    description: 'Learn the basics of composting and how to reduce waste in your household.',
-                    price: 5,
-                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image5_ianxbd?_a=BAMAMiRj0'
+                    title: 'LAN-Party at Solbjerg Plads',
+                    date: '2025-11-20',
+                    description: 'Bring your computer and join us for a fun LAN-party at Solbjerg Plads with gaming, food, and prizes!',
+                    price: 25,
+                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image5_rtglh2?_a=BAMAMiRj0'
                 },
                 {
-                    title: 'Urban Forestry Tour',
-                    date: '2024-12-15',
-                    description: 'Take a tour of the city\'s urban forests and learn about their importance to the environment.',
-                    price: 30,
-                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image6_njxdes?_a=BAMAMiRj0'
+                    title: 'Clover Hunt in Fælledparken',
+                    date: '2025-12-31',
+                    description: 'Join us for a fun clover hunting event in Fælledparken and see who can find the most clovers!',
+                    price: 900,
+                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image6_fqaysd?_a=BAMAMiRj0'
                 },
                 {
-                    title: 'Wildlife Photography Workshop',
+                    title: 'Microsoft Datacenter Tour',
                     date: '2025-01-10',
-                    description: 'Improve your photography skills while capturing images of local wildlife.',
-                    price: 40,
-                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image7_pqt7n3?_a=BAMAMiRj0'
+                    description: 'Experience a behind-the-scenes tour of a Microsoft Datacenter and learn about cloud computing infrastructure.',
+                    price: 420,
+                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image4_y72k6a?_a=BAMAMiRj0'
                 },
                 {
-                    title: 'Eco-Friendly Crafts',
-                    date: '2025-02-25',
-                    description: 'Create beautiful crafts using recycled and sustainable materials.',
-                    price: 12,
-                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image8_e0useu?_a=BAMAMiRj0'
+                    title: 'Counter-Strike Source',
+                    date: '2025-12-12',
+                    description: 'Join us for an exciting gaming event featuring Counter-Strike Source tournaments and activities.',
+                    price: 67,
+                    imageUrl: 'https://res.cloudinary.com/dkbezala8/image/upload/f_auto/image8_smw3k0?_a=BAMAMiRj0'
                 }
             ];
 
