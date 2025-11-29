@@ -21,15 +21,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const userRoutes = require('./routes/userRoutes');
+const eventRoutes = require('./routes/eventRoutes');
 
-app.use(userRoutes);
+app.use('/user', userRoutes);
+app.use('/events', eventRoutes);
 
 app.get("/", (req, res) => {
   res.render('login');
-});
-
-app.get("/events", (req, res) => {
-  res.render('event');
 });
 
 app.listen(3000, () => console.log("Server running on port 3000"));

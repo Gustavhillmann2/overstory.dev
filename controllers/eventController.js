@@ -22,6 +22,27 @@ async function createEvent(req, res) {
 	}
 }
 
+async function renderEvents(req, res) {
+	try {
+		const events = await EventModel.getEvents();
+
+		const user = req.session.userId;
+
+		console.log(user);
+
+		res.render('events', { 
+			events,
+			id: user.id,
+			username: user.username,
+			email: user.email
+		});
+	} catch (err) {
+		console.error(err);
+		res.status(500).send('Database error');
+	}
+}
+
 module.exports = {
 	createEvent,
+	renderEvents
 };

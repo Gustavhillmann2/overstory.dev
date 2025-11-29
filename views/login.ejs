@@ -7,14 +7,14 @@
     </head>
     
     <body>
-                <link rel="stylesheet" href="main.css" />
+                <link rel="stylesheet" href="/main.css" />
                 <div class="auth-center">
                     <div class="auth-card">
                         <div class="auth-header">
                             <h1>Login to Overstory</h1>
                         </div>
 
-                        <form action="/login" method="POST">
+                        <form action="/user/login" method="POST">
                             <label>Username</label>
                             <input id="username" name="username" type="text" placeholder="e.g. johndoe" required />
 
@@ -25,7 +25,7 @@
                             <p id="error-message" class="error"></p>
                         </form>
                         <div class="auth-footer">
-                            <p>Don't have an account? <a href="register.html">Register</a></p>
+                            <p>Don't have an account? <a href="/user/register">Register</a></p>
                             <% if (typeof error !== 'undefined' && error) { %>
                                 <%= error %>
                             <% } %>
