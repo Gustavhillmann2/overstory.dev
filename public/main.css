@@ -296,7 +296,6 @@ body {
 
 /* Cover image area for event cards */
 .event-cover {
-    width: 100%;
     height: 140px;
     background-size: cover;
     background-position: center;
