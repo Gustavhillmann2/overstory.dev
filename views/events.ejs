@@ -39,7 +39,7 @@
 					</div>
 				
 					<% if (event.isRegistered) { %>
-						<p class="registered-label">✔ You are signed up</p>
+						<p class="registered-label">You are signed up</p>
 					<% } else { %>
 						<form action="/events/register/<%= event.id %>" method="POST">
 							<button type="submit" class="event-sign-up">Sign Up</button>
