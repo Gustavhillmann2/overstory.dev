@@ -48,19 +48,28 @@ const getAssetInfo = async (publicId) => {
 //////////////////
 (async () => {
 
-    // Set the image to upload
-    const imagePath = '';
+    // 8 lokale billede-paths
+    const imagePaths = [
+        './public/images/img1.jpg',
+        './public/images/img2.jpg',
+        './public/images/img3.jpg',
+        './public/images/img4.jpg',
+        './public/images/img5.jpg',
+        './public/images/img6.jpg',
+        './public/images/img7.jpg',
+        './public/images/img8.jpg'
+    ];
 
-    // Upload the image
-    const publicId = await uploadImage(imagePath);
+    // Upload alle billeder
+    const publicIds = await uploadManyImages(imagePaths);
+    console.log("Uploaded images:", publicIds);
 
-    // Get the colors in the image
-    const colors = await getAssetInfo(publicId);
+    // Hent farver for første billede
+    const colors = await getAssetInfo(publicIds[0]);
 
-    // Create an image tag, using two of the colors in a transformation
-    const imageTag = await createImageTag(publicId, colors[0][0], colors[1][0]);
+    // Lav imagetag for første billede
+    const imageTag = await createImageTag(publicIds[0], colors[0][0], colors[1][0]);
 
-    // Log the image tag to the console
     console.log(imageTag);
 
 })();
