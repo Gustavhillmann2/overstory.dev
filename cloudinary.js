@@ -10,14 +10,14 @@ cloudinary.config({
 
 // Array med alle vores public IDs
 const publicIds = [
-  'image1_izjn09',
-  'image2_wjcvhs',
-  'image3_e4ixgc',
-  'image4_vnz3mg',
-  'image5_ianxbd',
-  'image6_njxdes',
-  'image7_pqt7n3',
-  'image8_e0useu'
+  'image1_zue0cr',
+  'image2_hj1ez1',
+  'image4_y72k6a',
+  'image5_rtglh2',
+  'image6_fqaysd',
+  'image7_lc1tdd',
+  'image9_xtrx5r',
+  'image8_smw3k0'
 ];
 
 // Generer URL'er for alle billeder
