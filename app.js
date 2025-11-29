@@ -16,18 +16,20 @@ app.use(
 );
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 const userRoutes = require('./routes/userRoutes');
 
-app.use("/api", userRoutes);
+app.use(userRoutes);
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "login.html"));
+  res.render('login');
 });
 
 app.get("/events", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "event.html"));
+  res.render('event');
 });
 
 app.listen(3000, () => console.log("Server running on port 3000"));

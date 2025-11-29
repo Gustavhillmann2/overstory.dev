@@ -29,8 +29,8 @@ async function loginUser(req, res) {
 		const user = await UserModel.findUser(username); // Finder brugeren i databasen
 
 		if (!user || user.password !== password) { // Tjekker om brugeren findes og om adgangskoden matcher
-			return res.status(401).json({ error: 'Invalid credentials' });
-		}
+            return res.render('login', { error: 'Wrong password or username' });
+		};
 
 		req.session.userId = {
 			id: user.id,
@@ -41,9 +41,10 @@ async function loginUser(req, res) {
 		console.log('Session data:', req.session.userId);
 		console.log('Successful login for user:', username);
 
-		return res.status(200).json({ message: 'Login successful' }); // Login succesfuldt
+		return res.redirect('/events'); // Redirecter til events-siden efter succesfuld login
+
 	} catch (err) {
-		return res.status(500).json({ error: 'Database error' }); // Håndterer databasefejl
+        return res.render('/login', { error: 'Database error' });
 	}
 }
 
