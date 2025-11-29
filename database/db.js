@@ -24,6 +24,21 @@ db.serialize(() => {
 });
 
 db.serialize(() => {
+    console.log('Creating database if it doesn\'t exist');
+    db.run(`CREATE TABLE IF NOT EXISTS registrations (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        userId INTEGER NOT NULL,
+        eventId INTEGER NOT NULL,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE(userId, eventId),
+        FOREIGN KEY (userId) REFERENCES users(id),
+        FOREIGN KEY (eventId) REFERENCES events(id)
+    )`);
+
+    console.log('Database initialized');
+});
+
+db.serialize(() => {
     console.log('Creating events table if it doesn\'t exist');
     db.run(`CREATE TABLE IF NOT EXISTS events (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
