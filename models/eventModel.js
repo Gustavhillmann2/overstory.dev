@@ -15,6 +15,19 @@ class EventModel {
 				resolve({ id: this.lastID, title, date, description, price, imageUrl });
 			});
 		})
+	};
+
+	static getEvents() {
+		return new Promise((resolve, reject) => {
+			const sql = `SELECT * FROM events`;
+
+			db.all(sql, [], (err, rows) => {
+				if (err) {
+					return reject(err);
+				}
+				resolve(rows);
+			});
+		})
 	}
 }
 

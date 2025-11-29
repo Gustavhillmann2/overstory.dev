@@ -35,6 +35,49 @@ db.serialize(() => {
     )`);
 
     console.log('Events table initialized');
+
+    db.get(`SELECT COUNT(*) AS count FROM events`, (err, row) => {
+        if (err) {
+            console.error('Error counting events:', err);
+            return;
+        }
+
+        if (row.count === 0) {
+            console.log("Inserting default events...");
+
+            const events = [
+                {
+                    title: 'Tree Planting Workshop',
+                    date: '2024-07-15',
+                    description: 'Learn how to plant and care for trees in this hands-on workshop.',
+                    price: 20,
+                    imageUrl: ''
+                },
+                {
+                    title: 'Nature Walk',
+                    date: '2024-08-01',
+                    description: 'Join us for a guided walk through the local forest and learn about native plants and wildlife.',
+                    price: 10,
+                    imageUrl: ''
+                }
+            ];
+
+            const stmt = db.prepare(`
+                INSERT INTO events (title, date, description, price, imageUrl)
+                VALUES (?, ?, ?, ?, ?)
+            `);
+
+            events.forEach(event => {
+                stmt.run(event.title, event.date, event.description, event.price, event.imageUrl);
+            });
+
+            stmt.finalize(() => {
+                console.log("Default events inserted successfully.");
+            });
+        } else {
+            console.log(`Events already exist: ${row.count}`);
+        }
+    });
 });
 
 

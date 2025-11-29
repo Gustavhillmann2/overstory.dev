@@ -16,7 +16,7 @@ async function createUser(req, res) {
 	try {
 		const newUser = await UserModel.createUser(username, phone, email, password);
 
-		return res.status(201).json(newUser);
+		return res.render('login');
 	} catch (err) {
 		return res.status(500).json({ error: 'Database error' });
 	}
