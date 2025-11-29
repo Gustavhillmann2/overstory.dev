@@ -1,4 +1,5 @@
 const UserModel = require('../models/userModel'); // Importer UserModel
+const bcrypt = require('bcrypt');
 
 // Controller funktion til at oprette en bruger
 async function createUser(req, res) {
@@ -11,13 +12,14 @@ async function createUser(req, res) {
 	}
 
 	try {
-		const newUser = await UserModel.createUser(username, phone, email, password);
+		const hashedPassword = await bcrypt.hash(password, 10); // Hash adgangskoden
+		const newUser = await UserModel.createUser(username, phone, email, hashedPassword); // Opretter brugeren i databasen
 
 		return res.render('login');
 	} catch (err) {
 		return res.status(500).json({ error: 'Database error' });
 	}
-}
+}	
 
 // Controller funktion til at logge en bruger ind
 async function loginUser(req, res) {
@@ -26,7 +28,7 @@ async function loginUser(req, res) {
 	try {
 		const user = await UserModel.findUser(username); // Finder brugeren i databasen
 
-		if (!user || user.password !== password) { // Tjekker om brugeren findes og om adgangskoden matcher
+		if (!user || !(await bcrypt.compare(password, user.password))) { // Tjekker om brugeren findes og om adgangskoden matcher
             return res.render('login', { error: 'Wrong password or username' });
 		};
 
