@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const rateLimit = require('express-rate-limit');
 require('express-async-errors'); // patch to handle async errors automatically
-const cloudinary = require('cloudinary').v2;
 
 const { body, validationResult } = require('express-validator');
 
@@ -76,14 +75,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-// --- 8. CLOUDINARY CONFIGURATION ---
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
-// Log the configuration
-console.log(cloudinary.config());
-
-module.exports = cloudinary;
