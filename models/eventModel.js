@@ -17,18 +17,18 @@ class EventModel {
 		})
 	};
 
-	static getEvents() {
-		return new Promise((resolve, reject) => {
-			const sql = `SELECT * FROM events`;
+	// static getEvents() {
+	// 	return new Promise((resolve, reject) => {
+	// 		const sql = `SELECT * FROM events`;
 
-			db.all(sql, [], (err, rows) => {
-				if (err) {
-					return reject(err);
-				}
-				resolve(rows);
-			});
-		})
-	}
+	// 		db.all(sql, [], (err, rows) => {
+	// 			if (err) {
+	// 				return reject(err);
+	// 			}
+	// 			resolve(rows);
+	// 		});
+	// 	})
+	// }
 
 	static registerEvent(userId, eventId) {
 		return new Promise((resolve, reject) => {
@@ -45,6 +45,29 @@ class EventModel {
 			});
 		})
 	}
+
+	static getEvents(userId) {
+		return new Promise((resolve, reject) => {
+			const sql = `
+				SELECT 
+					e.*,
+					CASE 
+						WHEN r.userId IS NOT NULL THEN 1 
+						ELSE 0 
+					END AS isRegistered
+				FROM events e
+				LEFT JOIN registrations r
+					ON e.id = r.eventId
+					AND r.userId = ?
+				ORDER BY e.date ASC
+			`;
+	
+			db.all(sql, [userId], (err, rows) => {
+				if (err) return reject(err);
+				resolve(rows);
+			});
+		});
+	}	
 }
 
 module.exports = EventModel;
