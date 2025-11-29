@@ -14,7 +14,7 @@
                             <h1>Login to Overstory</h1>
                         </div>
 
-                        <form action="/api/login" method="POST">
+                        <form action="/login" method="POST">
                             <label>Username</label>
                             <input id="username" name="username" type="text" placeholder="e.g. johndoe" required />
 
@@ -26,6 +26,9 @@
                         </form>
                         <div class="auth-footer">
                             <p>Don't have an account? <a href="register.html">Register</a></p>
+                            <% if (typeof error !== 'undefined' && error) { %>
+                                <%= error %>
+                            <% } %>
                         </div>
                     </div>
                 </div>
