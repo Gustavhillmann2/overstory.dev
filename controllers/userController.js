@@ -1,11 +1,8 @@
-/* Dens formål er, at tale med Express */
-
-// Importere models
-const UserModel = require('../models/userModel');
+const UserModel = require('../models/userModel'); // Importer UserModel
 
 // Controller funktion til at oprette en bruger
 async function createUser(req, res) {
-	console.log("REQ BODY:", req.body);
+	// console.log("REQ BODY:", req.body);
 	const { username, phone, email, password } = req.body;
 
 	// Validering af input
@@ -22,6 +19,7 @@ async function createUser(req, res) {
 	}
 }
 
+// Controller funktion til at logge en bruger ind
 async function loginUser(req, res) {
 	const { username, password } = req.body; // Henter brugerens oplysninger
 
@@ -32,14 +30,15 @@ async function loginUser(req, res) {
             return res.render('login', { error: 'Wrong password or username' });
 		};
 
+		// Gemmer brugerens oplysninger i sessionen
 		req.session.userId = {
 			id: user.id,
 			username: user.username,
 			email: user.email,
 		};
 
-		console.log('Session data:', req.session.userId);
-		console.log('Successful login for user:', username);
+		// console.log('Session data:', req.session.userId);
+		// console.log('Successful login for user:', username);
 
 		return res.redirect('/events'); // Redirecter til events-siden efter succesfuld login
 

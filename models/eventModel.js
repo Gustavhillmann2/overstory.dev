@@ -1,6 +1,8 @@
-const db = require('../database/db');
+const db = require('../database/db'); // Importer database forbindelse
 
+// EventModel klasse til at håndtere event relaterede database operationer
 class EventModel {
+	// Opret et nyt event i databasen
 	static createEvent(title, date, description, price, imageUrl) {
 		return new Promise((resolve, reject) => {
 			const sql = `
@@ -17,19 +19,7 @@ class EventModel {
 		})
 	};
 
-	// static getEvents() {
-	// 	return new Promise((resolve, reject) => {
-	// 		const sql = `SELECT * FROM events`;
-
-	// 		db.all(sql, [], (err, rows) => {
-	// 			if (err) {
-	// 				return reject(err);
-	// 			}
-	// 			resolve(rows);
-	// 		});
-	// 	})
-	// }
-
+	// Registrer en bruger til et event
 	static registerEvent(userId, eventId) {
 		return new Promise((resolve, reject) => {
 			const sql = `
@@ -46,6 +36,7 @@ class EventModel {
 		})
 	}
 
+	// Hent alle events med registreringsstatus for en given bruger
 	static getEvents(userId) {
 		return new Promise((resolve, reject) => {
 			const sql = `
