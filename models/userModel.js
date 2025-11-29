@@ -1,6 +1,8 @@
-const db = require('../database/db');
+const db = require('../database/db'); // Importer database forbindelse
 
+// UserModel klasse til at håndtere bruger relaterede database operationer
 class UserModel {
+	// Opret en ny bruger i databasen
 	static createUser(username, phone, email, password) {
 		return new Promise((resolve, reject) => {
 			const sql = `
@@ -17,6 +19,7 @@ class UserModel {
 		})
 	}
 
+	// Find en bruger i databasen baseret på brugernavn
 	static findUser(username) {
 		return new Promise((resolve, reject) => {
 			const sql = `
