@@ -29,6 +29,22 @@ class EventModel {
 			});
 		})
 	}
+
+	static registerEvent(userId, eventId) {
+		return new Promise((resolve, reject) => {
+			const sql = `
+				INSERT INTO registrations (userId, eventId)
+				VALUES (?, ?)
+			`
+
+			db.run(sql, [userId, eventId], function (err) {
+				if (err) {
+					return reject(err);
+				}
+				resolve({ id: this.lastID, userId, eventId });
+			});
+		})
+	}
 }
 
 module.exports = EventModel;

@@ -36,6 +36,10 @@
 
 					<span class="event-price">DKK <%= event.price %></span>
 				</div>
+
+				<form action="/events/register/<%= event.id %>" method="POST">
+					<button class="event-sign-up">Sign Up</button>
+				</form>
 			</article>
 			<% }) %>
 

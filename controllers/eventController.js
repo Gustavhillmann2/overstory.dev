@@ -42,7 +42,27 @@ async function renderEvents(req, res) {
 	}
 }
 
+async function registerEvent(req, res) {
+	const userId = req.session.userId.id;   // FIXED
+	const eventId = req.params.eventId;
+
+	try {
+		await EventModel.registerEvent(userId, eventId);
+		return res.redirect('/events');
+	} catch (err) {
+		console.error(err);
+
+		// If user already registered
+		if (err.message.includes("UNIQUE")) {
+			return res.redirect('/events');
+		}
+
+		return res.status(500).json({ error: 'Database error' });
+	}
+}
+
 module.exports = {
 	createEvent,
-	renderEvents
+	renderEvents,
+	registerEvent
 };
