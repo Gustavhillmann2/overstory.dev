@@ -24,10 +24,11 @@ async function createEvent(req, res) {
 
 async function renderEvents(req, res) {
 	try {
-		const events = await EventModel.getEvents();
-
+		
 		const user = req.session.userId;
 
+		const events = await EventModel.getEvents(user.id);
+		
 		console.log(user);
 
 		res.render('events', { 

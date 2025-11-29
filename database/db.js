@@ -1,6 +1,7 @@
-const path = require('path');
-const sqlite3 = require('sqlite3').verbose();
+const path = require('path'); // Benytter path til håndtering af filstier
+const sqlite3 = require('sqlite3').verbose(); // Importer sqlite3 biblioteket
 
+// Opretter en forbindelse til SQLite databasefilen
 const db = new sqlite3.Database(path.join(__dirname, 'mydb.sqlite'), (err) => {
     if (err) {
         console.error("Failed to connect to SQLite:", err);
@@ -9,9 +10,9 @@ const db = new sqlite3.Database(path.join(__dirname, 'mydb.sqlite'), (err) => {
     }
 });
 
-/* Opret tabel hvis den ikke findes */
+// Opretter users tabellen hvis den ikke allerede eksisterer
 db.serialize(() => {
-    console.log('Creating database if it doesn\'t exist');
+    console.log('Creating users table if it doesn\'t exist');
     db.run(`CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL,
@@ -20,11 +21,12 @@ db.serialize(() => {
         password TEXT NOT NULL
     )`);
 
-    console.log('Database initialized');
+    console.log('Users table created');
 });
 
+// Opretter registrations tabellen hvis den ikke allerede eksisterer
 db.serialize(() => {
-    console.log('Creating database if it doesn\'t exist');
+    console.log('Creating registrations table if it doesn\'t exist');
     db.run(`CREATE TABLE IF NOT EXISTS registrations (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         userId INTEGER NOT NULL,
@@ -35,9 +37,10 @@ db.serialize(() => {
         FOREIGN KEY (eventId) REFERENCES events(id)
     )`);
 
-    console.log('Database initialized');
+    console.log('Registrations table created');
 });
 
+// Opretter events tabellen hvis den ikke allerede eksisterer
 db.serialize(() => {
     console.log('Creating events table if it doesn\'t exist');
     db.run(`CREATE TABLE IF NOT EXISTS events (
@@ -49,7 +52,12 @@ db.serialize(() => {
         imageUrl TEXT NOT NULL
     )`);
 
-    console.log('Events table initialized');
+    console.log('Events table created');
+});
+
+// Indsætter standard events hvis tabellen er tom
+db.serialize(() => {
+    console.log('Checking if standard events already exists');
 
     db.get(`SELECT COUNT(*) AS count FROM events`, (err, row) => {
         if (err) {
@@ -57,9 +65,11 @@ db.serialize(() => {
             return;
         }
 
+        // Hvis der ikke er nogle events i tabellen, indsæt standard events
         if (row.count === 0) {
             console.log("Inserting default events...");
 
+            // Opretter et array af standard events
             const events = [
                 {
                     title: 'Tree Planting Workshop',
@@ -119,20 +129,23 @@ db.serialize(() => {
                 }
             ];
 
+            // Forbereder sql sætning til indsættelse af events
             const stmt = db.prepare(`
                 INSERT INTO events (title, date, description, price, imageUrl)
                 VALUES (?, ?, ?, ?, ?)
             `);
 
+            // Løber gennem events arrayet og indsætter hver event i databasen
             events.forEach(event => {
                 stmt.run(event.title, event.date, event.description, event.price, event.imageUrl);
             });
 
+            // Finaliserer sql sætningen
             stmt.finalize(() => {
                 console.log("Default events inserted successfully.");
             });
         } else {
-            console.log(`Events already exist: ${row.count}`);
+            console.log(`Events already exist`); //Hvis der allerede er events
         }
     });
 });
