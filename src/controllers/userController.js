@@ -19,7 +19,7 @@ async function createUser(req, res) {
 	} catch (err) {
 		return res.status(500).json({ error: 'Database error' });
 	}
-}
+}	
 
 // Controller funktion til at logge en bruger ind
 async function loginUser(req, res) {
