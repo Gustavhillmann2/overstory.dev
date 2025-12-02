@@ -30,27 +30,6 @@ app.use(express.json()); // parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // parse URL-encoded bodies
 app.use(cookieParser()); // parse cookies
 
-// 3. SESSION MANAGEMENT 
-app.use(session({
-  secret: 'mySecretKey', // change to a strong secret
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true, // prevent client-side JS access
-    secure: true,  // set true if using HTTPS
-    sameSite: 'lax',// CSRF protection'
-    maxAge: 1000 * 60 * 60 // 1 hour
-  }
-}));
-
-// 4. RATE LIMITING (FOR LOAD BALANCING & DDOS PROTECTION)
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again later.'
-});
-app.use(limiter);
-
 // 5. ROUTES WITH VALIDATION
 app.post('/register',
   // express-validator: validate input
