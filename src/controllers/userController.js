@@ -37,6 +37,7 @@ async function loginUser(req, res) {
 			id: user.id,
 			username: user.username,
 			email: user.email,
+			phone: user.phone
 		};
 
 		// console.log('Session data:', req.session.userId);
