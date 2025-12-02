@@ -58,7 +58,18 @@ class EventModel {
 				resolve(rows);
 			});
 		});
-	}	
+	}
+
+	static getEventById(id) {
+		return new Promise((resolve, reject) => {
+			const sql = `SELECT * FROM events WHERE id = ?`;
+	
+			db.get(sql, [id], (err, row) => {
+				if (err) return reject(err);
+				resolve(row);
+			});
+		});
+	}
 }
 
 module.exports = EventModel;

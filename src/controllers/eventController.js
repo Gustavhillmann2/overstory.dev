@@ -1,4 +1,5 @@
 const EventModel = require('../models/eventModel'); // Importer EventModel
+const { sendEventRegistrationSms } = require('../services/smsService');
 
 // Controller funktion til at oprette et event
 async function createEvent(req, res) {
@@ -45,11 +46,19 @@ async function renderEvents(req, res) {
 
 // Controller funktion til at registrere en bruger til et event
 async function registerEvent(req, res) {
+	const user = req.session.userId;
 	const userId = req.session.userId.id; // Hent bruger ID fra session
 	const eventId = req.params.eventId; // Hent event ID fra URL parametre
 
 	try {
 		await EventModel.registerEvent(userId, eventId); // Registrer bruger til event i databasen
+
+		const event = await EventModel.getEventById(eventId);
+
+		await sendEventRegistrationSms(user.phone, event);
+
+		console.log("SMS sendt til:", user.phone);
+
 		return res.redirect('/events'); // Redirect til events siden
 	} catch (err) {
 		console.error(err);
