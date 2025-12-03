@@ -1,21 +1,10 @@
 const express = require("express");
 const path = require("path");
 const session = require('express-session');
+const { limiter } = require('./middleware/rateLimiter');
+const sessionMiddleware = require('./middleware/sessionMiddleware');
 
 const app = express();
-
-// Konfigurerer session
-app.use(
-	session({
-		secret: "overstoryKey107",
-		resave: false,
-		saveUninitialized: false,
-		cookie: {
-		  maxAge: 1000 * 60 * 60 * 24, // 1 day
-		  httpOnly: true,
-		},
-	})
-);
 
 // Håndterer form data og JSON
 app.use(express.urlencoded({ extended: true }));
@@ -24,6 +13,9 @@ app.use(express.json());
 // Sætter view engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+app.use(sessionMiddleware); // Anvender session middleware
+app.use(limiter); // Anvender rate limiter middleware
 
 // Serverer statiske filer (css, osv)
 app.use(express.static(path.join(__dirname, 'public')));
