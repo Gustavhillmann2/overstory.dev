@@ -4,8 +4,6 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const rateLimit = require('express-rate-limit');
 require('express-async-errors'); // patch to handle async errors automatically
 
 const { body, validationResult } = require('express-validator');
