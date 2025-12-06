@@ -1,8 +1,8 @@
 const express = require("express");
 const path = require("path");
-const session = require('express-session');
-const { limiter } = require('./middleware/rateLimiter');
+const limiter = require('./middleware/rateLimiter');
 const sessionMiddleware = require('./middleware/sessionMiddleware');
+const responsTimeMiddleware = require ('./middleware/responseTime');
 
 const app = express();
 
@@ -16,6 +16,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(sessionMiddleware); // Anvender session middleware
 app.use(limiter); // Anvender rate limiter middleware
+app.use(responsTimeMiddleware); // Avender response time middleware
 
 // Serverer statiske filer (css, osv)
 app.use(express.static(path.join(__dirname, 'public')));
