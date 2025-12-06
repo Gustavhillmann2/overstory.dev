@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const limiter = require('./middleware/rateLimiter');
+const { limiter } = require('./middleware/rateLimiter');
 const sessionMiddleware = require('./middleware/sessionMiddleware');
 const responsTimeMiddleware = require ('./middleware/responseTime');
 

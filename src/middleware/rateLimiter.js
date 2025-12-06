@@ -7,4 +7,11 @@ const limiter = rateLimit({
     statusCode: 429, // HTTP status kode for "Too Many Requests"
 })
 
-module.exports = limiter; // eksportere rate-limiter middleware
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutter,
+    max: 10, // maks 10 login forsøg pr. ip
+    message: 'Too many login attempts from this IP, please try again later.',
+    statusCode: 429
+});
+
+module.exports = { limiter, loginLimiter }; // eksportere rate-limiter middleware

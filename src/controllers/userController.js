@@ -40,9 +40,6 @@ async function loginUser(req, res) {
 			phone: user.phone
 		};
 
-		// console.log('Session data:', req.session.userId);
-		// console.log('Successful login for user:', username);
-
 		return res.redirect('/events'); // Redirecter til events-siden efter succesfuld login
 
 	} catch (err) {
