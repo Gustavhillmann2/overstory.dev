@@ -33,7 +33,7 @@ async function loginUser(req, res) {
 		};
 
 		// Gemmer brugerens oplysninger i sessionen
-		req.session.userId = {
+		req.session.user = {
 			id: user.id,
 			username: user.username,
 			email: user.email,

@@ -25,12 +25,10 @@ async function createEvent(req, res) {
 async function renderEvents(req, res) {
 	try {
 		
-		const user = req.session.userId; // Hent bruger info fra session
+		const user = req.session.user; // Hent bruger info fra session
 
 		const events = await EventModel.getEvents(user.id); // Hent events fra databasen
 		
-		// console.log(user);
-
 		// Render events siden med bruger og event data
 		res.render('events', { 
 			events,
@@ -46,12 +44,11 @@ async function renderEvents(req, res) {
 
 // Controller funktion til at registrere en bruger til et event
 async function registerEvent(req, res) {
-	const user = req.session.userId;
-	const userId = req.session.userId.id; // Hent bruger ID fra session
+	const user = req.session.user;; // Hent bruger info fra session
 	const eventId = req.params.eventId; // Hent event ID fra URL parametre
 
 	try {
-		await EventModel.registerEvent(userId, eventId); // Registrer bruger til event i databasen
+		await EventModel.registerEvent(user.id, eventId); // Registrer bruger til event i databasen
 
 		const event = await EventModel.getEventById(eventId);
 
