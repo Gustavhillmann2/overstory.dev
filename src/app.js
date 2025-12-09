@@ -12,10 +12,10 @@ app.use(express.json());
 
 // Sætter view engine
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));  
 
 app.use(sessionMiddleware); // Anvender session middleware
-app.use(limiter); // Anvender rate limiter middleware
+// app.use(limiter); // Anvender rate limiter middleware
 app.use(responsTimeMiddleware); // Avender response time middleware
 
 // Serverer statiske filer (css, osv)
