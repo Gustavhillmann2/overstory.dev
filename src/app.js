@@ -1,10 +1,16 @@
 const express = require("express");
 const path = require("path");
-const { limiter } = require('./middleware/rateLimiter');
-const sessionMiddleware = require('./middleware/sessionMiddleware');
-const responsTimeMiddleware = require ('./middleware/responseTime');
 const helmet = require('helmet');
-const csrf = require('csurf');
+
+//Middleware imports
+const { limiter } = require('./middleware/rateLimiter');
+const responsTimeMiddleware = require ('./middleware/responseTime');
+const sessionMiddleware = require('./middleware/sessionMiddleware');
+const { csrfProtection, attachCsrfToken, csrfErrorHandler } = require('./middleware/csrfMiddleware');
+
+// Importer ruter
+const userRoutes = require('./routes/userRoutes');
+const eventRoutes = require('./routes/eventRoutes');
 
 const app = express();
 
@@ -17,33 +23,16 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(sessionMiddleware); // Anvender session middleware
-app.use(csrfProtection); // Anvender CSRF beskyttelse middleware
 app.use(limiter); // Anvender rate limiter middleware
 app.use(responsTimeMiddleware); // Avender response time middleware
-
-// CSRF beskyttelse
-const csrfProtection = csrf();
-// Make token available in all views
-app.use((req, res, next) => {
-    res.locals.csrfToken = req.csrfToken();
-    next();
-});
-app.use((err, req, res, next) => {
-  if (err.code === 'EBADCSRFTOKEN') {
-      return res.status(403).send('Form tampered with.');
-  }
-  next(err);
-});
-
-// endpoint beskyttelse med helmet middleware
 app.use(helmet());
+
+app.use(csrfProtection);
+app.use(attachCsrfToken);
+app.use(csrfErrorHandler);
 
 // Serverer statiske filer (css, osv)
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Importer ruter
-const userRoutes = require('./routes/userRoutes');
-const eventRoutes = require('./routes/eventRoutes');
 
 // Tilføjer ruter til appen
 app.use('/user', userRoutes);
