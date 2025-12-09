@@ -1,76 +1,85 @@
+// app.js
+require('dotenv').config();
 const express = require("express");
 const path = require("path");
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
-const csrf = require('csurf');
 const { limiter } = require('./middleware/rateLimiter');
 const sessionMiddleware = require('./middleware/sessionMiddleware');
-const responsTimeMiddleware = require ('./middleware/responseTime');
+const responseTimeMiddleware = require('./middleware/responseTime');
+const { csrfProtection, attachCsrfToken, csrfErrorHandler } = require('./middleware/csrfMiddleware');
+const userRoutes = require('./routes/userRoutes');
+const eventRoutes = require('./routes/eventRoutes');
 
 const app = express();
 
-// Morgan logger alle HTTP requests til konsollen
+// Hvis app kører bag en reverse proxy (Heroku, nginx, PM2 cluster), sæt trust proxy
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+}
+
+// Logger
 if (process.env.NODE_ENV === 'production') {
   app.use(morgan('combined'));
 } else {
   app.use(morgan('dev'));
 }
 
-// CORS begrænser hvilke domæner der kan tilgå applikationen
+// CORS: vær præcis. Hvis du skal bruge credentials, skal origin være en streng eller en whitelist-funktion.
 app.use(cors({
-  origin: ['https://overstory.dk'], // Tillad kun anmodninger fra denne oprindelse
-  methods: ['GET', 'POST'], // Tillad kun disse HTTP metoder
-  credentials: true // Tillad cookies og autorisations headers
+  origin: process.env.CORS_ORIGIN || 'https://overstory.dk',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  credentials: true,
 }));
 
-// endpoint beskyttelse med helmet middleware (Sætter sikre HTTP headers)
-app.use(helmet());
+// Helmet - anbefales konfigureret 
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+      connectSrc: ["'self'"],
+      styleSrc: ["'self'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "https://res.cloudinary.com"],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  },
+}));
 
-// Håndterer form data og JSON
+// Body parsers
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Sætter view engine
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));  
+// Session - skal være før CSRF (csurf bruger session/cookies)
+app.use(sessionMiddleware);
 
-app.use(sessionMiddleware); // Anvender session middleware
-app.use(csrfProtection); // Anvender CSRF beskyttelse middleware
-const csrfProtection = csrf(); // Initialiserer CSRF beskyttelse middleware
-
-// gør CSRF token tilgængelig i alle views
-app.use((req, res, next) => {
-    res.locals.csrfToken = req.csrfToken();
-    next();
-});
-
-// Håndterer CSRF fejl
-app.use((err, req, res, next) => {
-  if (err.code === 'EBADCSRFTOKEN') {
-      return res.status(403).send('Form tampered with.');
-  }
-  next(err);
-});
-
-app.use(limiter); // Anvender rate limiter middleware
-app.use(responsTimeMiddleware); // Avender response time middleware
-
+// CSRF protection (skal komme efter body-parser & session)
 app.use(csrfProtection);
+
+// Gør token tilgængelig i views
 app.use(attachCsrfToken);
+
+// CSRF error handler (middleware med 4 parametre)
 app.use(csrfErrorHandler);
 
-// Serverer statiske filer (css, osv)
+// Rate limiter + response time
+app.use(limiter);
+app.use(responseTimeMiddleware);
+
+// Static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Tilføjer ruter til appen
+// Routes
 app.use('/user', userRoutes);
 app.use('/events', eventRoutes);
 
-// Definerer ruten
+// Root
 app.get("/", (req, res) => {
   res.render('login');
 });
 
-// Starter serveren
-app.listen(3000, () => console.log("Server running on port 3000"));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -44,7 +44,7 @@ async function renderEvents(req, res) {
 
 // Controller funktion til at registrere en bruger til et event
 async function registerEvent(req, res) {
-	const user = req.session.user;; // Hent bruger info fra session
+	const user = req.session.user; // Hent bruger info fra session
 	const eventId = req.params.eventId; // Hent event ID fra URL parametre
 
 	try {
