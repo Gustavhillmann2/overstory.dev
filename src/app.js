@@ -3,6 +3,8 @@ const path = require("path");
 const { limiter } = require('./middleware/rateLimiter');
 const sessionMiddleware = require('./middleware/sessionMiddleware');
 const responsTimeMiddleware = require ('./middleware/responseTime');
+const helmet = require('helmet');
+const csrf = require('csurf');
 
 const app = express();
 
@@ -15,8 +17,26 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(sessionMiddleware); // Anvender session middleware
+app.use(csrfProtection); // Anvender CSRF beskyttelse middleware
 app.use(limiter); // Anvender rate limiter middleware
 app.use(responsTimeMiddleware); // Avender response time middleware
+
+// CSRF beskyttelse
+const csrfProtection = csrf();
+// Make token available in all views
+app.use((req, res, next) => {
+    res.locals.csrfToken = req.csrfToken();
+    next();
+});
+app.use((err, req, res, next) => {
+  if (err.code === 'EBADCSRFTOKEN') {
+      return res.status(403).send('Form tampered with.');
+  }
+  next(err);
+});
+
+// endpoint beskyttelse med helmet middleware
+app.use(helmet());
 
 // Serverer statiske filer (css, osv)
 app.use(express.static(path.join(__dirname, 'public')));
