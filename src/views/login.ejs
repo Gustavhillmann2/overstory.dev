@@ -15,15 +15,15 @@
                         </div>
 
                         <form action="/user/login" method="POST">
-                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                            <label>Username</label>
-                            <input id="username" name="username" type="text" placeholder="e.g. johndoe" required />
-
-                            <label>Password</label>
-                            <input id="password" name="password" type="password" placeholder="Your password" required />
-
-                            <button id="login-button">Login</button>
-                            <p id="error-message" class="error"></p>
+                            <form action="/user/login" method="POST">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <label>Username</label>
+                                <input id="username" name="username" type="text" placeholder="e.g. johndoe" required />
+                                <label>Password</label>
+                                <input id="password" name="password" type="password" placeholder="Your password" required />
+                                <button id="login-button">Login</button>
+                                <p id="error-message" class="error"></p>
+                            </form>                            
                         </form>
                         <div class="auth-footer">
                             <p>Don't have an account? <a href="/user/register">Register</a></p>

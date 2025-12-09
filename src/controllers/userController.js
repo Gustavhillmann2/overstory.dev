@@ -43,7 +43,7 @@ async function loginUser(req, res) {
 		return res.redirect('/events'); // Redirecter til events-siden efter succesfuld login
 
 	} catch (err) {
-        return res.render('/login', { error: 'Database error' });
+        return res.render('login', { error: 'Database error' });
 	}
 }
 

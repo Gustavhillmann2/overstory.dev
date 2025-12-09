@@ -1,24 +1,26 @@
+// middleware/csrfMiddleware.js
 const csrf = require('csurf');
 
-// Middleware der aktiverer CSRF-beskyttelse
 const csrfProtection = csrf();
-
-// Gør csrf token tilgængelig i alle EJS-views
 const attachCsrfToken = (req, res, next) => {
+  try {
     res.locals.csrfToken = req.csrfToken();
-    next();
+  } catch (e) {
+    // hvis token ikke er initialiseret endnu
+    res.locals.csrfToken = null;
+  }
+  next();
 };
 
-// Håndtere fejl hvis csfr token mangler eller er ugyldigt
 const csrfErrorHandler = (err, req, res, next) => {
-    if (err.code === 'EBADCSRFTOKEN') {
-        return res.status(403).send('Form tampered with.');
-    }
-    next(err);
+  if (err && err.code === 'EBADCSRFTOKEN') {
+    return res.status(403).send('Form tampered with.');
+  }
+  next(err);
 };
 
 module.exports = {
-    csrfProtection,
-    attachCsrfToken,
-    csrfErrorHandler
+  csrfProtection,
+  attachCsrfToken,
+  csrfErrorHandler
 };
