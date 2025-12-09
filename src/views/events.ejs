@@ -42,6 +42,7 @@
 						<p class="registered-label">You are signed up</p>
 					<% } else { %>
 						<form action="/events/register/<%= event.id %>" method="POST">
+							<input type="hidden" name="_csrf" value="<%= csrfToken %>">
 							<button type="submit" class="event-sign-up">Sign Up</button>
 						</form>
 					<% } %>

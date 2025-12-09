@@ -8,5 +8,11 @@ router.post('/login', loginLimiter, userController.loginUser); // Rute til at lo
 router.get('/register', (req, res) => { // Rute til at vise registreringssiden
     res.render('register');
 });
+router.post('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.clearCookie('overstory.sid');
+        res.redirect('/');
+    });
+});// Rute til at logge en bruger ud
 
 module.exports = router;

@@ -1,8 +1,16 @@
 const express = require("express");
 const path = require("path");
+const helmet = require('helmet');
+
+//Middleware imports
 const { limiter } = require('./middleware/rateLimiter');
-const sessionMiddleware = require('./middleware/sessionMiddleware');
 const responsTimeMiddleware = require ('./middleware/responseTime');
+const sessionMiddleware = require('./middleware/sessionMiddleware');
+const { csrfProtection, attachCsrfToken, csrfErrorHandler } = require('./middleware/csrfMiddleware');
+
+// Importer ruter
+const userRoutes = require('./routes/userRoutes');
+const eventRoutes = require('./routes/eventRoutes');
 
 const app = express();
 
@@ -17,13 +25,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(sessionMiddleware); // Anvender session middleware
 // app.use(limiter); // Anvender rate limiter middleware
 app.use(responsTimeMiddleware); // Avender response time middleware
+app.use(helmet());
+
+app.use(csrfProtection);
+app.use(attachCsrfToken);
+app.use(csrfErrorHandler);
 
 // Serverer statiske filer (css, osv)
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Importer ruter
-const userRoutes = require('./routes/userRoutes');
-const eventRoutes = require('./routes/eventRoutes');
 
 // Tilføjer ruter til appen
 app.use('/user', userRoutes);
