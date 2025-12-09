@@ -7,6 +7,7 @@ const csrf = require('csurf');
 const { limiter } = require('./middleware/rateLimiter');
 const sessionMiddleware = require('./middleware/sessionMiddleware');
 const responsTimeMiddleware = require ('./middleware/responseTime');
+
 const app = express();
 
 // Morgan logger alle HTTP requests til konsollen
@@ -32,7 +33,7 @@ app.use(express.json());
 
 // Sætter view engine
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));  
 
 app.use(sessionMiddleware); // Anvender session middleware
 app.use(csrfProtection); // Anvender CSRF beskyttelse middleware
@@ -55,12 +56,12 @@ app.use((err, req, res, next) => {
 app.use(limiter); // Anvender rate limiter middleware
 app.use(responsTimeMiddleware); // Avender response time middleware
 
+app.use(csrfProtection);
+app.use(attachCsrfToken);
+app.use(csrfErrorHandler);
+
 // Serverer statiske filer (css, osv)
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Importer ruter
-const userRoutes = require('./routes/userRoutes');
-const eventRoutes = require('./routes/eventRoutes');
 
 // Tilføjer ruter til appen
 app.use('/user', userRoutes);
