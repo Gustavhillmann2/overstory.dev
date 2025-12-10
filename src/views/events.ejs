@@ -10,6 +10,10 @@
 				<div class="user-popup">
 					<strong class="popup-name"><%= username %></strong>
 					<div class="popup-email"><%= email %></div>
+					<form action="/user/logout" method="POST">
+						<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+						<button type="submit" class="logout-btn">Logout</button>
+					</form>
 				</div>
 			</div>
 		</div>
