@@ -1,8 +1,6 @@
-// app.js
 require('dotenv').config();
 const express = require("express");
 const path = require("path");
-const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { limiter } = require('./middleware/rateLimiter');
@@ -11,6 +9,7 @@ const responseTimeMiddleware = require('./middleware/responseTime');
 const { csrfProtection, attachCsrfToken, csrfErrorHandler } = require('./middleware/csrfMiddleware');
 const userRoutes = require('./routes/userRoutes');
 const eventRoutes = require('./routes/eventRoutes');
+const loggerMiddleware = require('./middleware/morgan');
 
 const app = express();
 
@@ -19,12 +18,7 @@ if (process.env.NODE_ENV === 'production') {
   app.set('trust proxy', 1);
 }
 
-// Logger
-if (process.env.NODE_ENV === 'production') {
-  app.use(morgan('combined'));
-} else {
-  app.use(morgan('dev'));
-}
+app.use(loggerMiddleware); // Benytter logger middleware
 
 // CORS: vær præcis. Hvis du skal bruge credentials, skal origin være en streng eller en whitelist-funktion.
 app.use(cors({
@@ -70,6 +64,8 @@ app.use(limiter);
 app.use(responseTimeMiddleware);
 
 // Static files
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
