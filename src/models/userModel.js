@@ -16,8 +16,8 @@ class UserModel {
 				}
 				resolve({ id: this.lastID, username, phone, email });
 			});
-		})
-	}
+		});
+	};
 
 	// Find en bruger i databasen baseret på brugernavn
 	static findUser(username) {
@@ -32,8 +32,8 @@ class UserModel {
 				}
 				resolve(row);
 			});
-		})
-	}
-}
+		});
+	};
+};
 
 module.exports = UserModel;

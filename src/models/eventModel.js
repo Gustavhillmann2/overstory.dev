@@ -16,7 +16,7 @@ class EventModel {
 				}
 				resolve({ id: this.lastID, title, date, description, price, imageUrl });
 			});
-		})
+		});
 	};
 
 	// Registrer en bruger til et event
@@ -33,8 +33,8 @@ class EventModel {
 				}
 				resolve({ id: this.lastID, userId, eventId });
 			});
-		})
-	}
+		});
+	};
 
 	// Hent alle events med registreringsstatus for en given bruger
 	static getEvents(userId) {
@@ -58,7 +58,7 @@ class EventModel {
 				resolve(rows);
 			});
 		});
-	}
+	};
 
 	static getEventById(id) {
 		return new Promise((resolve, reject) => {
@@ -69,7 +69,7 @@ class EventModel {
 				resolve(row);
 			});
 		});
-	}
-}
+	};
+};
 
 module.exports = EventModel;
