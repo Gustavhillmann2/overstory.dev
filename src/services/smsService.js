@@ -1,10 +1,10 @@
 require('dotenv').config();
 const twilio = require('twilio');
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
+const ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
+const AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
 
-const client = twilio(accountSid, authToken);
+const client = twilio(ACCOUNT_SID, AUTH_TOKEN);
 
 async function sendEventRegistrationSms(to, event) {
 	try {
