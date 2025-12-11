@@ -15,7 +15,7 @@ module.exports = session({
   cookie: {
     maxAge: 1000 * 60 * 60 * 24, // 1 day
     httpOnly: true,
-    secure: IN_PROD,            // sikre cookies i produktion
+    secure: true,            // sikre cookies i produktion
     sameSite: 'lax'             // vurder 'strict' hvis muligt
   },
 });
