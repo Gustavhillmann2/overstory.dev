@@ -21,4 +21,4 @@ async function sendEventRegistrationSms(to, event) {
 	};
 };
 
-module.exports = { sendEventRegistrationSms };
+module.exports = { sendEventRegistrationSms };	
