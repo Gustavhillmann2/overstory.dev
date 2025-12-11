@@ -2,15 +2,16 @@ module.exports = {
   apps: [
     {
       name: "overstory.dev",
-      script: "src/app.js",      // RETTET: Tilføjet src/ foran app.js
-      instances: "max",
-      exec_mode: "cluster",
+      script: "src/app.js",      // Sti til din hovedfil
+      instances: "max",          // Kør på alle kerner
+      exec_mode: "cluster",      // Påkrævet for load balancing
       autorestart: true,
       watch: false,
       env: {
-        NODE_ENV: "production",
-        SESSION_SECRET: "dev-secret-change-me"
-      }
+        NODE_ENV: "production"   // Sikrer at 'trust proxy' aktiveres i app.js
+      },
+      // VIGTIGT: Fortæller PM2 præcis hvor din .env er placeret
+      env_file: "src/.env" 
     }
   ]
 };
