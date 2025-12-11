@@ -1,21 +1,14 @@
-// middleware/sessionMiddleware.js
 const session = require('express-session');
 
-const IN_PROD = process.env.NODE_ENV === 'production';
-const SESSION_SECRET = process.env.SESSION_SECRET;
-if (!SESSION_SECRET) {
-  console.warn('WARNING: SESSION_SECRET is not set. Set process.env.SESSION_SECRET for production.');
-}
-
 module.exports = session({
-  name: process.env.SESSION_NAME || 'overstory.sid',
-  secret: SESSION_SECRET || 'dev-secret-change-me', // kun fallback til dev
+  name: 'overstory.sid',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24, // 1 day
     httpOnly: true,
-    secure: true,            // sikre cookies i produktion
-    sameSite: 'lax'             // vurder 'strict' hvis muligt
-  },
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax'
+  }
 });
+
