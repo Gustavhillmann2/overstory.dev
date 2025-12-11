@@ -9,6 +9,7 @@ module.exports = {
       watch: false,
       env: {
         NODE_ENV: "production",
+        SESSION_SECRET: "dev-secret-change-me"
       }
     }
   ]
