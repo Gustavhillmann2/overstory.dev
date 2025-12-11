@@ -6,6 +6,6 @@ if (process.env.NODE_ENV === 'production') { // Tjekker om miljøet er produktio
     logger = morgan('combined'); // Bruger 'combined' format for produktion
 } else {
     logger = morgan('dev'); // Bruger 'dev' format for udvikling
-}
+};
 
 module.exports = logger;

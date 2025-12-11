@@ -13,6 +13,6 @@ router.post('/logout', (req, res) => {
         res.clearCookie('overstory.sid');
         res.redirect('/');
     });
-});// Rute til at logge en bruger ud
+});
 
 module.exports = router;

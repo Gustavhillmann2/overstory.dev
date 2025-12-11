@@ -18,9 +18,7 @@ async function sendEventRegistrationSms(to, event) {
 	} catch (err) {
 		console.error("Twilio SMS error:", err);
 		throw err;
-	}
-}
-
-module.exports = {
-	sendEventRegistrationSms
+	};
 };
+
+module.exports = { sendEventRegistrationSms };
