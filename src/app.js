@@ -58,9 +58,6 @@ app.get("/", (req, res) => {
   res.render('login');
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
 app.get('/test', (req, res) => {
   // Log noget nyttigt
   console.log('req.secure:', req.secure);
@@ -78,3 +75,6 @@ app.get('/test', (req, res) => {
       session_views: req.session.views
   });
 });
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
