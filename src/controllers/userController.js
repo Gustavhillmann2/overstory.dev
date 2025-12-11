@@ -33,15 +33,12 @@ async function loginUser(req, res) {
 		};
 
 		// Gemmer brugerens oplysninger i sessionen
-		req.session.userId = {
+		req.session.user = {
 			id: user.id,
 			username: user.username,
 			email: user.email,
 			phone: user.phone
 		};
-
-		// console.log('Session data:', req.session.userId);
-		// console.log('Successful login for user:', username);
 
 		return res.redirect('/events'); // Redirecter til events-siden efter succesfuld login
 
