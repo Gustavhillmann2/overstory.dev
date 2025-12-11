@@ -1,7 +1,7 @@
 const cors = require('cors'); // Importerer cors biblioteket
 
 // Henter CORS_ORIGIN miljøvariablen, falder tilbage til standard URL.
-const CORS_ORIGIN = process.env.CORS_ORIGIN || 'https://overstory.dk';
+const CORS_ORIGIN = process.env.CORS_ORIGIN || 'https://overstory.dev';
 
 const corsMiddleware = cors({
   origin: CORS_ORIGIN, // Tillader forespørgsler fra den definerede origin

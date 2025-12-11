@@ -16,6 +16,6 @@ module.exports = session({
     maxAge: 1000 * 60 * 60 * 24, // 1 day
     httpOnly: true,
     secure: IN_PROD,            // sikre cookies i produktion
-    sameSite: 'lax'             // vurder 'strict' hvis muligt
+    sameSite: IN_PROD ? 'none' : 'lax' // vurder 'strict' hvis muligt
   },
 });
