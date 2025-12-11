@@ -32,27 +32,31 @@ For at køre projektet lokalt skal du følge disse trin:
 ### 1. Forudsætninger
 Sikre dig at du har Node.js og npm installeret på din maskine.
 
-### 2. Kloning af repositoriet
+### 2. Kloning af repositoriet og setup af afhængigheder
 
 ```bash
-git clone [DIT-REPO-URL]
+git clone https://github.com/Gustavhillmann2/overstory.dev
 cd overstory.dev
-
 npm install
+
+```
+
+### 3. Miljøvariabler (.env)
+```bash
 
 # Porten applikationen skal køre på
 PORT=3000
 
-# Session Secret (VIGTIGT: Skal være stærk og unik i produktion)
+# Session Secret
 SESSION_SECRET="din_super_hemmelige_session_secret"
 SESSION_NAME="overstory.sid" # Session cookie navn
 
-# Twilio API (til SMS-tjeneste)
+# Twilio API
 TWILIO_ACCOUNT_SID="ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 TWILIO_AUTH_TOKEN="dit_auth_token"
 TWILIO_PHONE="+15017122661" # Dit Twilio telefonnummer
 
-# Cloudinary (hvis events skal opdateres, men standard events virker uden)
+# Cloudinary
 CLOUDINARY_CLOUD_NAME="dit_cloud_navn"
 CLOUDINARY_API_KEY="din_api_nøgle"
 CLOUDINARY_API_SECRET="din_api_secret"
@@ -60,4 +64,9 @@ CLOUDINARY_API_SECRET="din_api_secret"
 # CORS Origin
 CORS_ORIGIN="http://localhost:3000" # Sæt til din frontend URL i produktion
 
+```
+
+### 4. Kør applikationen
+```bash
 npm start
+```
