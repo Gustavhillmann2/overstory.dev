@@ -37,6 +37,12 @@ app.use(responseTimeMiddleware); // Benytter response time middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Tjekker for secure cookies:
+app.use((req, res, next) => {
+  console.log('req.secure:', req.secure, 'X-Forwarded-Proto:', req.get('X-Forwarded-Proto'));
+  next();
+});
+
 // Session middleware
 app.use(sessionMiddleware);
 
