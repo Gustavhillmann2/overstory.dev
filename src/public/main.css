@@ -1,3 +1,4 @@
+/* Importerer Google Font så vi kan brgue den i vores styles, ved brug af Googles import url */
 @import url('https://fonts.googleapis.com/css2?family=Phetsarath:wght@400;700&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap');
 
 body {
@@ -12,7 +13,7 @@ body {
     background: #f5f7fb;
 }
 
-/* Wrapper to center auth forms inside viewport */
+/* Centrerer alt indhold til midten af siden */
 .auth-center {
     width: 100%;
     min-height: 100vh;
@@ -102,10 +103,10 @@ body {
     background: #1e4fdc;
 }
 
-/* Small footer under auth forms (register/login link) */
+/* Mindre footer under vores events (register/login link) */
 .auth-footer {
     text-align: center;
-    margin-top: 6px; /* reduced spacing so link sits closer to the form */
+    margin-top: 6px;
 }
 .auth-footer p {
     margin: 0;
@@ -121,14 +122,14 @@ body {
     text-decoration: underline;
 }
 
-/* Login error message: remove default margins so footer sits close */
+/* Login error message: fjerner standard marginer, så det hele er lidt tættere */
 #error-message.error, .error {
     margin: 0;
     font-size: 13px;
     color: #dc2626;
 }
 
-/* Events page styles */
+/* Events side styling */
 .events-page {
     width: 100%;
     display: flex;
@@ -136,7 +137,6 @@ body {
     justify-content: center;
     padding: 40px 20px;
     box-sizing: border-box;
-    /* ensure the page content starts from the top of the viewport so the title isn't clipped */
     align-self: flex-start;
 }
 
@@ -153,7 +153,7 @@ body {
     color: #0f172a;
 }
 
-/* Page header with user badge */
+/* Header med det lille ikon i styling */
 .page-header {
     position: relative;
     display: flex;
@@ -182,7 +182,6 @@ body {
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    /* remove the shadow/ring so the avatar reads as a flat emoji button */
     box-shadow: none;
     font-size: 18px;
 }
@@ -199,7 +198,6 @@ body {
     white-space: nowrap;
     font-size: 14px;
     z-index: 5;
-    /* use opacity/transform for smooth show/hide (better than display:none) */
     opacity: 0;
     transform: translateY(-6px);
     visibility: hidden;
@@ -257,12 +255,12 @@ body {
     border-color: #fee2e2;
 }
 
-/* Reduced motion: disable animation */
+/* Reduced motion: fjerner animationen */
 @media (prefers-reduced-motion: reduce) {
     .user-popup { transition: none; transform: none; }
 }
 
-/* Small visual tweak on mobile: make the popup full-width under the avatar */
+/* Mindre visuel rettelse, når man er på mobil: gør at popup er fuld bredde */
 @media (max-width: 420px) {
     .user-popup {
         left: 0;
@@ -291,20 +289,20 @@ body {
     min-height: 170px;
     box-sizing: border-box;
     transition: transform 180ms ease, box-shadow 180ms ease;
-    overflow: hidden; /* ensure cover image clips to card corners */
+    overflow: hidden;
 }
 
-/* Cover image area for event cards */
+/* Styling vedr. billedet som er til hvert event */
 .event-cover {
     height: 140px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 12px 12px 0 0;
-    margin: -20px -20px 12px -20px; /* pull cover to card edges despite padding */
+    margin: -20px -20px 12px -20px;
 }
 
-.event-card .event-title { /* ensure title sits after cover with spacing */
+.event-card .event-title {
     margin-top: 0.25rem;
 }
 
@@ -360,6 +358,7 @@ body {
     font-size: 13px;
 }
 
+/* Styling til når siden bliver mindre i bredde, så det stadge ser godt ud */
 @media (max-width: 820px) {
         .events-grid { grid-template-columns: 1fr; }
         .events-page { padding: 24px 12px; }
@@ -367,7 +366,7 @@ body {
 }
 
 .event-sign-up {
-    background-color: #22304f; /* Use your theme's primary color */
+    background-color: #22304f;
     color: #fff;
     border: none;
     padding: 0.5em 1.2em;
@@ -380,7 +379,7 @@ body {
 }
 
 .event-sign-up:hover {
-    background-color: #182239; /* Slightly darker for hover */
+    background-color: #182239;
     box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
