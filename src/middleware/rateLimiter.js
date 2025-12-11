@@ -5,7 +5,7 @@ const limiter = rateLimit({
     max: 100, // limiter hver IP to 100 requests pr. windowMs
     message: 'Too many requests from this IP, please try again later.',
     statusCode: 429, // HTTP status kode for "Too Many Requests"
-})
+});
 
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutter,

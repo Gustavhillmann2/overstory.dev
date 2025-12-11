@@ -42,8 +42,8 @@ app.use(express.json());
 
 // Tjekker for secure cookies:
 app.use((req, res, next) => {
-  console.log('req.secure:', req.secure, 'X-Forwarded-Proto:', req.get('X-Forwarded-Proto'));
-  next();
+	console.log('req.secure:', req.secure, 'X-Forwarded-Proto:', req.get('X-Forwarded-Proto'));
+	next();
 });
 
 // Session middleware
@@ -60,7 +60,7 @@ app.use('/events', eventRoutes);
 
 // Root
 app.get("/", (req, res) => {
-  res.render('login');
+	res.render('login');
 });
 
 const PORT = process.env.PORT || 3000;
