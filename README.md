@@ -44,6 +44,10 @@ npm install
 ### 3. Miljøvariabler (.env)
 ```bash
 
+# Miljøkonfiguration
+NODE_ENV=development # Sæt til 'production' ved deployment.
+IN_PROD=false # Sæt til 'true' ved deployment
+
 # Porten applikationen skal køre på
 PORT=3000
 
