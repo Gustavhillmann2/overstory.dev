@@ -3,19 +3,18 @@ const bcrypt = require('bcrypt');
 
 // Controller funktion til at oprette en bruger
 async function createUser(req, res) {
-	// console.log("REQ BODY:", req.body);
-	const { username, phone, email, password } = req.body;
+	const { username, phone, email, password } = req.body; // Henter brugerens oplysninger
 
 	// Validering af input
 	if(!username || !phone || !email || !password) {
-		return res.status(400).json({ error: 'Missing fields' });
+		return res.status(400).json({ error: 'Missing fields' }); // Returner fejl hvis felter mangler
 	}
 
 	try {
 		const hashedPassword = await bcrypt.hash(password, 10); // Hash adgangskoden
 		const newUser = await UserModel.createUser(username, phone, email, hashedPassword); // Opretter brugeren i databasen
 
-		return res.render('login');
+		return res.render('login'); // Rendrer login siden efter succesfuld oprettelse
 	} catch (err) {
 		return res.status(500).json({ error: 'Database error' });
 	};
@@ -29,7 +28,7 @@ async function loginUser(req, res) {
 		const user = await UserModel.findUser(username); // Finder brugeren i databasen
 
 		if (!user || !(await bcrypt.compare(password, user.password))) { // Tjekker om brugeren findes og om adgangskoden matcher
-            return res.render('login', { error: 'Wrong password or username' });
+            return res.render('login', { error: 'Wrong password or username' }); // Returner fejl ved forkert brugernavn eller adgangskode
 		};
 
 		// Gemmer brugerens oplysninger i sessionen
