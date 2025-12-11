@@ -17,10 +17,9 @@ const eventRoutes = require('./routes/eventRoutes');
 
 const app = express(); // Starter express app
 
-// sætter proxy for cookies når bag en proxy
-if (process.env.NODE_ENV === 'production') {
-  app.set('trust proxy', 1);
-}
+// 🔹 Dette skal stå FØR session middleware
+// Tillader Express at se HTTPS, når serveren kører bag en proxy
+app.set('trust proxy', 1);
 
 // Sætter view engine, lokation på views og public folder
 app.set('view engine', 'ejs');
@@ -37,16 +36,16 @@ app.use(responseTimeMiddleware); // Benytter response time middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Tjekker for secure cookies:
+// 🔹 Tjekker for secure cookies (valgfrit)
 app.use((req, res, next) => {
   console.log('req.secure:', req.secure, 'X-Forwarded-Proto:', req.get('X-Forwarded-Proto'));
   next();
 });
 
-// Session middleware
+// 🔹 Session middleware (Secure cookies vil nu virke)
 app.use(sessionMiddleware);
 
-// CSRF middleware 
+// 🔹 CSRF middleware 
 app.use(csrfProtection);
 app.use(attachCsrfToken);
 app.use(csrfErrorHandler);
@@ -60,5 +59,6 @@ app.get("/", (req, res) => {
   res.render('login');
 });
 
+// 🔹 Start server (Node.js på serveren håndterer HTTPS)
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
