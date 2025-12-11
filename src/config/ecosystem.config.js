@@ -3,7 +3,7 @@ module.exports = {
     {
       name: "overstory.dev",
       script: "src/app.js",      // Sti til din hovedfil
-      instances: "max",          // Kør på alle kerner
+      instances: "1",          // Kør på alle kerner
       exec_mode: "cluster",      // Påkrævet for load balancing
       autorestart: true,
       watch: false,
