@@ -1,6 +1,7 @@
-require('dotenv').config();
-const cloudinary = require('cloudinary').v2;
+require('dotenv').config(); // Henter variabler fra .env
+const cloudinary = require('cloudinary').v2; // Importerer cloudinary biblioteket
 
+// Opsætter cloudinary med vøres API nøgler, osv.
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 	api_key: process.env.CLOUDINARY_API_KEY,
@@ -8,7 +9,7 @@ cloudinary.config({
 	secure: true
 });
 
-// Array med alle vores public IDs
+// Array med alle vores public ids for billederne
 const publicIds = [
 	'image1_zue0cr',
 	'image2_hj1ez1',
@@ -25,4 +26,4 @@ const urls = publicIds.map(id =>
 	cloudinary.url(id, { transformation: [{ fetch_format: 'auto' }] })
 );
 
-console.log(urls);
+console.log(urls); // Udskriver URL'erne til konsollen

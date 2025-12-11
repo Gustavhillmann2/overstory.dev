@@ -7,7 +7,7 @@ async function createEvent(req, res) {
 
 	// Validering af input
 	if (!title || !date || !description || !price || !imageUrl) {
-		return res.status(400).json({ error: 'Missing fields' }); // Returner fejl hvis felter mangler
+		return res.status(400).json({ error: 'Missing required fields' }); // Returner fejl hvis felter mangler
 	}
 
 	try {
@@ -16,7 +16,7 @@ async function createEvent(req, res) {
 		return res.status(201).json(newEvent); // Returner det oprettede event
 	} catch (err) {
 		console.error(err);
-		return res.status(500).json({ error: 'Database error' }); // Returner fejl ved databasefejl
+		return res.status(500).json({ error: 'Internal Server Error: Failed to create event' }); // Returner fejl ved databasefejl
 	};
 };
 
@@ -37,7 +37,7 @@ async function renderEvents(req, res) {
 		});
 	} catch (err) {
 		console.error(err);
-		res.status(500).send('Database error');
+		return res.status(500).json({ error: 'Internal Server Error: Failed to retrieve events' });
 	};
 };
 
@@ -63,7 +63,7 @@ async function registerEvent(req, res) {
 			return res.redirect('/events'); // Redirect til events siden uden fejlmeddelelse
 		}
 
-		return res.status(500).json({ error: 'Database error' }); // Returner fejl ved databasefejl
+		return res.status(500).json({ error: 'Internal Server Error: Event registration failed' }); // Returner fejl ved databasefejl
 	};
 };
 

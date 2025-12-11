@@ -54,7 +54,9 @@ class EventModel {
 			`;
 	
 			db.all(sql, [userId], (err, rows) => {
-				if (err) return reject(err);
+				if (err) {
+					return reject(err);
+				}
 				resolve(rows);
 			});
 		});
@@ -65,7 +67,9 @@ class EventModel {
 			const sql = `SELECT * FROM events WHERE id = ?`;
 	
 			db.get(sql, [id], (err, row) => {
-				if (err) return reject(err);
+				if (err) {
+					return reject(err);	
+				}
 				resolve(row);
 			});
 		});

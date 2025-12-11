@@ -7,7 +7,7 @@ async function createUser(req, res) {
 
 	// Validering af input
 	if(!username || !phone || !email || !password) {
-		return res.status(400).json({ error: 'Missing fields' }); // Returner fejl hvis felter mangler
+		return res.status(400).json({ error: 'Missing required fields' }); // Returner fejl hvis felter mangler
 	}
 
 	try {
@@ -16,7 +16,8 @@ async function createUser(req, res) {
 
 		return res.render('login'); // Rendrer login siden efter succesfuld oprettelse
 	} catch (err) {
-		return res.status(500).json({ error: 'Database error' });
+		console.error(err);
+		return res.status(500).json({ error: 'Internal Server Error: Failed to create user' });
 	};
 };
 
@@ -42,7 +43,8 @@ async function loginUser(req, res) {
 		return res.redirect('/events'); // Redirecter til events-siden efter succesfuld login
 
 	} catch (err) {
-        return res.render('login', { error: 'Database error' });
+		console.error(err);
+        return res.render('login', { error: 'Internal Server Error: Database access failed' });
 	};
 };
 
