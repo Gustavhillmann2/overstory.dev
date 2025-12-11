@@ -17,10 +17,8 @@ const eventRoutes = require('./routes/eventRoutes');
 
 const app = express(); // Starter express app
 
-// Hvis app kører bag en reverse proxy (Heroku, nginx, PM2 cluster), sæt trust proxy
-if (process.env.NODE_ENV === 'production') {
-  app.set('trust proxy', 1);
-}
+// sætter proxy for cookies når bag en proxy
+app.set('trust proxy', 1);
 
 // Sætter view engine, lokation på views og public folder
 app.set('view engine', 'ejs');
