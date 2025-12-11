@@ -18,8 +18,8 @@ async function createUser(req, res) {
 		return res.render('login');
 	} catch (err) {
 		return res.status(500).json({ error: 'Database error' });
-	}
-}	
+	};
+};
 
 // Controller funktion til at logge en bruger ind
 async function loginUser(req, res) {
@@ -43,9 +43,9 @@ async function loginUser(req, res) {
 		return res.redirect('/events'); // Redirecter til events-siden efter succesfuld login
 
 	} catch (err) {
-        return res.render('/login', { error: 'Database error' });
-	}
-}
+        return res.render('login', { error: 'Database error' });
+	};
+};
 
 module.exports = {
 	createUser,

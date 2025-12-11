@@ -3,7 +3,6 @@ const { sendEventRegistrationSms } = require('../services/smsService');
 
 // Controller funktion til at oprette et event
 async function createEvent(req, res) {
-	// console.log("REQ BODY:", req.body); 
 	const { title, date, description, price, imageUrl } = req.body; // Hent data fra request body
 
 	// Validering af input
@@ -18,8 +17,8 @@ async function createEvent(req, res) {
 	} catch (err) {
 		console.error(err);
 		return res.status(500).json({ error: 'Database error' });
-	}
-}
+	};
+};
 
 // Controller funktion til at rendre events siden
 async function renderEvents(req, res) {
@@ -39,12 +38,12 @@ async function renderEvents(req, res) {
 	} catch (err) {
 		console.error(err);
 		res.status(500).send('Database error');
-	}
-}
+	};
+};
 
 // Controller funktion til at registrere en bruger til et event
 async function registerEvent(req, res) {
-	const user = req.session.user;; // Hent bruger info fra session
+	const user = req.session.user; // Hent bruger info fra session
 	const eventId = req.params.eventId; // Hent event ID fra URL parametre
 
 	try {
@@ -65,8 +64,8 @@ async function registerEvent(req, res) {
 		}
 
 		return res.status(500).json({ error: 'Database error' });
-	}
-}
+	};
+};
 
 module.exports = {
 	createEvent,

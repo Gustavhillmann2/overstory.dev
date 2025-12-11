@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="/main.css">
 
 <div class="events-page">
 	<main class="events-container">
@@ -10,6 +10,10 @@
 				<div class="user-popup">
 					<strong class="popup-name"><%= username %></strong>
 					<div class="popup-email"><%= email %></div>
+					<form action="/user/logout" method="POST">
+						<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+						<button type="submit" class="logout-btn">Logout</button>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -42,8 +46,9 @@
 						<p class="registered-label">You are signed up</p>
 					<% } else { %>
 						<form action="/events/register/<%= event.id %>" method="POST">
+							<input type="hidden" name="_csrf" value="<%= csrfToken %>">
 							<button type="submit" class="event-sign-up">Sign Up</button>
-						</form>
+						</form>						
 					<% } %>
 				
 				</article>
