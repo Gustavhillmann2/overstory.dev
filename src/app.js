@@ -23,6 +23,7 @@ const app = express(); // Starter express app
 // }
 
 app.set('trust proxy', 1);
+app.set('trust proxy', true);
 
 // Sætter view engine, lokation på views og public folder
 app.set('view engine', 'ejs');
