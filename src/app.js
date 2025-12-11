@@ -2,6 +2,9 @@ require('dotenv').config();
 const express = require("express");
 const path = require("path");
 
+// Hvis app kører bag en reverse proxy (Heroku, nginx, PM2 cluster), sæt trust proxy
+app.set('trust proxy', 1);
+
 // Importere middleware 
 const sessionMiddleware = require('./middleware/sessionMiddleware');
 const responseTimeMiddleware = require('./middleware/responseTime');
@@ -16,11 +19,6 @@ const userRoutes = require('./routes/userRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 
 const app = express(); // Starter express app
-
-// Hvis app kører bag en reverse proxy (Heroku, nginx, PM2 cluster), sæt trust proxy
-if (process.env.NODE_ENV === 'production') {
-  app.set('trust proxy', 1);
-}
 
 // Sætter view engine, lokation på views og public folder
 app.set('view engine', 'ejs');
@@ -62,3 +60,21 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+app.get('/test', (req, res) => {
+  // Log noget nyttigt
+  console.log('req.secure:', req.secure);
+  console.log('req.protocol:', req.protocol);
+  console.log('X-Forwarded-Proto:', req.get('X-Forwarded-Proto'));
+
+  // Session-test
+  req.session.views = (req.session.views || 0) + 1;
+
+  res.send({
+      message: 'Test route',
+      req_secure: req.secure,
+      protocol: req.protocol,
+      forwarded_proto: req.get('X-Forwarded-Proto'),
+      session_views: req.session.views
+  });
+});
